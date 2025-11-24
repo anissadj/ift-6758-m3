@@ -3,7 +3,6 @@ import requests
 import pandas as pd
 import logging
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -28,12 +27,14 @@ class ServingClient:
             X (Dataframe): Input dataframe to submit to the prediction service.
         """
 
-        raise NotImplementedError("TODO: implement this function")
-
+        df_json = X.to_dict(orient="records")
+        response = requests.post(self.base_url + "/predict", json=df_json)
+        return response
+    
     def logs(self) -> dict:
         """Get server logs"""
-
-        raise NotImplementedError("TODO: implement this function")
+        response = requests.get(self.base_url + "/logs")
+        return response.json()
 
     def download_registry_model(self, workspace: str, model: str, version: str) -> dict:
         """
@@ -50,5 +51,7 @@ class ServingClient:
             model (str): The model in the Comet ML registry to download
             version (str): The model version to download
         """
+        json_data = {'workspace': workspace, 'model':model, 'version':version}
+        response  = requests.post(self.base_url+'/download_registry_model', json= json_data )
+        return response.json() 
 
-        raise NotImplementedError("TODO: implement this function")
