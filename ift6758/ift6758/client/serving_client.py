@@ -36,7 +36,7 @@ class ServingClient:
         response = requests.get(self.base_url + "/logs")
         return response.json()
 
-    def download_registry_model(self, workspace: str, model: str, version: str) -> dict:
+    def download_registry_model(self, entity: str, project: str, version: str, model_name: str) -> dict:
         """
         Triggers a "model swap" in the service; the workspace, model, and model version are
         specified and the service looks for this model in the model registry and tries to
@@ -51,7 +51,12 @@ class ServingClient:
             model (str): The model in the Comet ML registry to download
             version (str): The model version to download
         """
-        json_data = {'workspace': workspace, 'model':model, 'version':version}
-        response  = requests.post(self.base_url+'/download_registry_model', json= json_data )
-        return response.json() 
+        data = {'entity': entity, 'project':project, 'model_name':model_name , 'version':version}
+        path  = self.base_url+'/download_registry_model'
+        try:
+            response  = requests.post(path, json= data )
+            return response.json()
+        except Exception as e:
+            print(f'I encountered an error {e}')
+        return None
 

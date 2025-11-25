@@ -1,0 +1,238 @@
+INFO:app:Starting Flask app...
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.11:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [24/Nov/2025 14:04:47] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [24/Nov/2025 14:04:47] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [24/Nov/2025 14:04:48] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [24/Nov/2025 14:05:11] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:app:Starting Flask app...
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.11:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [24/Nov/2025 14:05:53] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [24/Nov/2025 14:06:28] "GET /logs HTTP/1.1" 200 -
+WARNING:app:No model currently loaded. Please download a model first.
+INFO:app:[{'feature': 1}]
+ERROR:app:Prediction failed: 'NoneType' object has no attribute 'predict'
+INFO:werkzeug:127.0.0.1 - - [24/Nov/2025 14:07:20] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [24/Nov/2025 14:08:42] "GET /logs HTTP/1.1" 200 -
+INFO:app:Starting Flask app...
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.11:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:28:37] "GET /logs HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:29:52] "[31m[1mPOST /download_registry_model HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:29:57] "[31m[1mPOST /download_registry_model HTTP/1.1[0m" 400 -
+INFO:app:{'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest'}
+INFO:app:Attempting to download model: IFT6758-2025-B1/IFT6758-2025-B01/model1-distance:latest
+WARNING:app:WANDB_API_KEY environment variable not set
+INFO:app:Downloading model from W&B: IFT6758-2025-B1/IFT6758-2025-B01/model1-distance:latest
+INFO:app:Loading model from: C:\Users\salee\OneDrive\Documents\GitHub\ift-6758-m3\serving\artifacts\model1-distance-v0\model.joblib
+INFO:app:Successfully downloaded and loaded model: IFT6758-2025-B1/IFT6758-2025-B01/model1-distance:latest
+INFO:app:Successfully downloaded and loaded model: IFT6758-2025-B1/IFT6758-2025-B01/model1-distance:latest
+INFO:app:{'status': 'success', 'message': 'Model downloaded and loaded: IFT6758-2025-B1/IFT6758-2025-B01/model1-distance:latest', 'model_info': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:11.617610', 'source': 'registry'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:30:11] "POST /download_registry_model HTTP/1.1" 200 -
+INFO:app:{'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest'}
+INFO:app:Model already cached: IFT6758-2025-B1/IFT6758-2025-B01/model1-distance:latest
+INFO:app:Successfully loaded model from cache: IFT6758-2025-B1/IFT6758-2025-B01/model1-distance:latest
+INFO:app:{'status': 'success', 'message': 'Model loaded from cache: IFT6758-2025-B1/IFT6758-2025-B01/model1-distance:latest', 'model_info': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:30:27] "POST /download_registry_model HTTP/1.1" 200 -
+INFO:app:[{'distance': 10}, {'distance': 25}, {'distance': 40}]
+ERROR:app:Prediction failed: The feature names should match those that were passed during fit.
+Feature names unseen at fit time:
+- distance
+Feature names seen at fit time, yet now missing:
+- distance_to_net
+
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:57:12] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:57:14] "GET /logs HTTP/1.1" 200 -
+INFO:app:{'entity': ['IFT6758-2025-B1'], 'project': ['IFT6758-2025-B01'], 'model_name': ['model1-distance'], 'version': 'latest'}
+INFO:app:Attempting to download model: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+WARNING:app:WANDB_API_KEY environment variable not set
+INFO:app:Downloading model from W&B: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+ERROR:app:Failed to download model from W&B: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+ERROR:app:Failed to download model from registry: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+INFO:app:Keeping current model: {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}
+INFO:app:{'status': 'error', 'message': 'Failed to download model from registry: project "[\'IFT6758-2025-B01\']" not found under entity "[\'IFT6758-2025-B1\']"', 'current_model': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:57:17] "POST /download_registry_model HTTP/1.1" 200 -
+INFO:app:[{'distance': 10}, {'distance': 25}, {'distance': 40}]
+ERROR:app:Prediction failed: The feature names should match those that were passed during fit.
+Feature names unseen at fit time:
+- distance
+Feature names seen at fit time, yet now missing:
+- distance_to_net
+
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:58:26] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:58:28] "GET /logs HTTP/1.1" 200 -
+INFO:app:{'entity': ['IFT6758-2025-B1'], 'project': ['IFT6758-2025-B01'], 'model_name': ['model1-distance'], 'version': 'latest'}
+INFO:app:Attempting to download model: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+WARNING:app:WANDB_API_KEY environment variable not set
+INFO:app:Downloading model from W&B: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+ERROR:app:Failed to download model from W&B: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+ERROR:app:Failed to download model from registry: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+INFO:app:Keeping current model: {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}
+INFO:app:{'status': 'error', 'message': 'Failed to download model from registry: project "[\'IFT6758-2025-B01\']" not found under entity "[\'IFT6758-2025-B1\']"', 'current_model': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:58:32] "POST /download_registry_model HTTP/1.1" 200 -
+INFO:app:[{'distance': 10}, {'distance': 25}, {'distance': 40}]
+ERROR:app:Prediction failed: The feature names should match those that were passed during fit.
+Feature names unseen at fit time:
+- distance
+Feature names seen at fit time, yet now missing:
+- distance_to_net
+
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:58:46] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:58:48] "GET /logs HTTP/1.1" 200 -
+INFO:app:{'entity': ['IFT6758-2025-B1'], 'project': ['IFT6758-2025-B01'], 'model_name': ['model1-distance'], 'version': 'latest'}
+INFO:app:Attempting to download model: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+WARNING:app:WANDB_API_KEY environment variable not set
+INFO:app:Downloading model from W&B: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+ERROR:app:Failed to download model from W&B: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+ERROR:app:Failed to download model from registry: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+INFO:app:Keeping current model: {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}
+INFO:app:{'status': 'error', 'message': 'Failed to download model from registry: project "[\'IFT6758-2025-B01\']" not found under entity "[\'IFT6758-2025-B1\']"', 'current_model': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:58:52] "POST /download_registry_model HTTP/1.1" 200 -
+INFO:app:[{'distance': 10}, {'distance': 25}, {'distance': 40}]
+ERROR:app:Prediction failed: The feature names should match those that were passed during fit.
+Feature names unseen at fit time:
+- distance
+Feature names seen at fit time, yet now missing:
+- distance_to_net
+
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:59:56] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 11:59:59] "GET /logs HTTP/1.1" 200 -
+INFO:app:{'entity': ['IFT6758-2025-B1'], 'project': ['IFT6758-2025-B01'], 'model_name': ['model1-distance'], 'version': 'latest'}
+INFO:app:Attempting to download model: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+WARNING:app:WANDB_API_KEY environment variable not set
+INFO:app:Downloading model from W&B: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+ERROR:app:Failed to download model from W&B: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+ERROR:app:Failed to download model from registry: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+INFO:app:Keeping current model: {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}
+INFO:app:{'status': 'error', 'message': 'Failed to download model from registry: project "[\'IFT6758-2025-B01\']" not found under entity "[\'IFT6758-2025-B1\']"', 'current_model': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:00:03] "POST /download_registry_model HTTP/1.1" 200 -
+INFO:app:[{'distance_to_net': 10}, {'distance_to_net': 25}, {'distance_to_net': 40}]
+INFO:app:Successfully generated predictions for 3 samples
+INFO:app:{'predictions': [[0.8167079485784874, 0.18329205142151261], [0.8923218986210038, 0.1076781013789962], [0.939069787213767, 0.06093021278623296]], 'predicted_class': [0, 0, 0], 'model_info': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}, 'n_samples': 3}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:00:20] "POST /predict HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:00:22] "GET /logs HTTP/1.1" 200 -
+INFO:app:{'entity': ['IFT6758-2025-B1'], 'project': ['IFT6758-2025-B01'], 'model_name': ['model1-distance'], 'version': 'latest'}
+INFO:app:Attempting to download model: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+WARNING:app:WANDB_API_KEY environment variable not set
+INFO:app:Downloading model from W&B: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+ERROR:app:Failed to download model from W&B: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+ERROR:app:Failed to download model from registry: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+INFO:app:Keeping current model: {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}
+INFO:app:{'status': 'error', 'message': 'Failed to download model from registry: project "[\'IFT6758-2025-B01\']" not found under entity "[\'IFT6758-2025-B1\']"', 'current_model': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:00:26] "POST /download_registry_model HTTP/1.1" 200 -
+INFO:app:[{'distance_to_net': 10}, {'distance_to_net': 25}, {'distance_to_net': 40}]
+INFO:app:Successfully generated predictions for 3 samples
+INFO:app:{'predictions': [[0.8167079485784874, 0.18329205142151261], [0.8923218986210038, 0.1076781013789962], [0.939069787213767, 0.06093021278623296]], 'predicted_class': [0, 0, 0], 'model_info': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}, 'n_samples': 3}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:01:01] "POST /predict HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:01:03] "GET /logs HTTP/1.1" 200 -
+INFO:app:{'entity': ['IFT6758-2025-B01'], 'project': ['IFT6758-2025-B1'], 'model_name': ['model1-distance'], 'version': 'latest'}
+INFO:app:Attempting to download model: ['IFT6758-2025-B01']/['IFT6758-2025-B1']/['model1-distance']:latest
+WARNING:app:WANDB_API_KEY environment variable not set
+INFO:app:Downloading model from W&B: ['IFT6758-2025-B01']/['IFT6758-2025-B1']/['model1-distance']:latest
+ERROR:app:Failed to download model from W&B: project "['IFT6758-2025-B1']" not found under entity "['IFT6758-2025-B01']"
+ERROR:app:Failed to download model from registry: project "['IFT6758-2025-B1']" not found under entity "['IFT6758-2025-B01']"
+INFO:app:Keeping current model: {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}
+INFO:app:{'status': 'error', 'message': 'Failed to download model from registry: project "[\'IFT6758-2025-B1\']" not found under entity "[\'IFT6758-2025-B01\']"', 'current_model': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:01:07] "POST /download_registry_model HTTP/1.1" 200 -
+INFO:app:[{'distance_to_net': 10}, {'distance_to_net': 25}, {'distance_to_net': 40}]
+INFO:app:Successfully generated predictions for 3 samples
+INFO:app:{'predictions': [[0.8167079485784874, 0.18329205142151261], [0.8923218986210038, 0.1076781013789962], [0.939069787213767, 0.06093021278623296]], 'predicted_class': [0, 0, 0], 'model_info': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}, 'n_samples': 3}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:01:59] "POST /predict HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:02:01] "GET /logs HTTP/1.1" 200 -
+INFO:app:{'entity': ['IFT6758-2025-B1'], 'project': ['IFT6758-2025-B01'], 'model_name': ['model1-distance'], 'version': ':latest'}
+INFO:app:Attempting to download model: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']::latest
+WARNING:app:WANDB_API_KEY environment variable not set
+INFO:app:Downloading model from W&B: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']::latest
+ERROR:app:Failed to download model from W&B: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+ERROR:app:Failed to download model from registry: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+INFO:app:Keeping current model: {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}
+INFO:app:{'status': 'error', 'message': 'Failed to download model from registry: project "[\'IFT6758-2025-B01\']" not found under entity "[\'IFT6758-2025-B1\']"', 'current_model': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:02:05] "POST /download_registry_model HTTP/1.1" 200 -
+INFO:app:[{'distance_to_net': 10}, {'distance_to_net': 25}, {'distance_to_net': 40}]
+INFO:app:Successfully generated predictions for 3 samples
+INFO:app:{'predictions': [[0.8167079485784874, 0.18329205142151261], [0.8923218986210038, 0.1076781013789962], [0.939069787213767, 0.06093021278623296]], 'predicted_class': [0, 0, 0], 'model_info': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}, 'n_samples': 3}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:09:51] "POST /predict HTTP/1.1" 200 -
+INFO:app:[{'distance_to_net': 10}, {'distance_to_net': 25}, {'distance_to_net': 40}]
+INFO:app:Successfully generated predictions for 3 samples
+INFO:app:{'predictions': [[0.8167079485784874, 0.18329205142151261], [0.8923218986210038, 0.1076781013789962], [0.939069787213767, 0.06093021278623296]], 'predicted_class': [0, 0, 0], 'model_info': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}, 'n_samples': 3}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:10:13] "POST /predict HTTP/1.1" 200 -
+INFO:app:[{'distance_to_net': 10}, {'distance_to_net': 25}, {'distance_to_net': 40}]
+INFO:app:Successfully generated predictions for 3 samples
+INFO:app:{'predictions': [[0.8167079485784874, 0.18329205142151261], [0.8923218986210038, 0.1076781013789962], [0.939069787213767, 0.06093021278623296]], 'predicted_class': [0, 0, 0], 'model_info': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}, 'n_samples': 3}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:12:03] "POST /predict HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:12:05] "GET /logs HTTP/1.1" 200 -
+INFO:app:{'entity': ['IFT6758-2025-B1'], 'project': ['IFT6758-2025-B01'], 'model_name': ['model1-distance'], 'version': 'latest'}
+INFO:app:Attempting to download model: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+WARNING:app:WANDB_API_KEY environment variable not set
+INFO:app:Downloading model from W&B: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+ERROR:app:Failed to download model from W&B: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+ERROR:app:Failed to download model from registry: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+INFO:app:Keeping current model: {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}
+INFO:app:{'status': 'error', 'message': 'Failed to download model from registry: project "[\'IFT6758-2025-B01\']" not found under entity "[\'IFT6758-2025-B1\']"', 'current_model': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:12:09] "POST /download_registry_model HTTP/1.1" 200 -
+INFO:app:[{'distance_to_net': 10}, {'distance_to_net': 25}, {'distance_to_net': 40}]
+INFO:app:Successfully generated predictions for 3 samples
+INFO:app:{'predictions': [[0.8167079485784874, 0.18329205142151261], [0.8923218986210038, 0.1076781013789962], [0.939069787213767, 0.06093021278623296]], 'predicted_class': [0, 0, 0], 'model_info': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}, 'n_samples': 3}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:16:08] "POST /predict HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:16:10] "GET /logs HTTP/1.1" 200 -
+INFO:app:{'entity': ['IFT6758-2025-B1'], 'project': ['IFT6758-2025-B01'], 'model_name': ['model1-distance'], 'version': 'latest'}
+INFO:app:Attempting to download model: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+WARNING:app:WANDB_API_KEY environment variable not set
+INFO:app:Downloading model from W&B: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+ERROR:app:Failed to download model from W&B: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+ERROR:app:Failed to download model from registry: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+INFO:app:Keeping current model: {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}
+INFO:app:{'status': 'error', 'message': 'Failed to download model from registry: project "[\'IFT6758-2025-B01\']" not found under entity "[\'IFT6758-2025-B1\']"', 'current_model': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:16:14] "POST /download_registry_model HTTP/1.1" 200 -
+INFO:app:[{'distance_to_net': 3}, {'distance_to_net': 25}, {'distance_to_net': 40}]
+INFO:app:Successfully generated predictions for 3 samples
+INFO:app:{'predictions': [[0.7693498008502098, 0.23065019914979026], [0.8923218986210038, 0.1076781013789962], [0.939069787213767, 0.06093021278623296]], 'predicted_class': [0, 0, 0], 'model_info': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}, 'n_samples': 3}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:16:36] "POST /predict HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:16:38] "GET /logs HTTP/1.1" 200 -
+INFO:app:{'entity': ['IFT6758-2025-B1'], 'project': ['IFT6758-2025-B01'], 'model_name': ['model1-distance'], 'version': 'latest'}
+INFO:app:Attempting to download model: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+WARNING:app:WANDB_API_KEY environment variable not set
+INFO:app:Downloading model from W&B: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+ERROR:app:Failed to download model from W&B: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+ERROR:app:Failed to download model from registry: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+INFO:app:Keeping current model: {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}
+INFO:app:{'status': 'error', 'message': 'Failed to download model from registry: project "[\'IFT6758-2025-B01\']" not found under entity "[\'IFT6758-2025-B1\']"', 'current_model': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:16:41] "POST /download_registry_model HTTP/1.1" 200 -
+INFO:app:[{'distance_to_net': 1}, {'distance_to_net': 25}, {'distance_to_net': 40}]
+INFO:app:Successfully generated predictions for 3 samples
+INFO:app:{'predictions': [[0.7543433510985463, 0.2456566489014537], [0.8923218986210038, 0.1076781013789962], [0.939069787213767, 0.06093021278623296]], 'predicted_class': [0, 0, 0], 'model_info': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}, 'n_samples': 3}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:16:54] "POST /predict HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:16:56] "GET /logs HTTP/1.1" 200 -
+INFO:app:{'entity': ['IFT6758-2025-B1'], 'project': ['IFT6758-2025-B01'], 'model_name': ['model1-distance'], 'version': 'latest'}
+INFO:app:Attempting to download model: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+WARNING:app:WANDB_API_KEY environment variable not set
+INFO:app:Downloading model from W&B: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+ERROR:app:Failed to download model from W&B: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+ERROR:app:Failed to download model from registry: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+INFO:app:Keeping current model: {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}
+INFO:app:{'status': 'error', 'message': 'Failed to download model from registry: project "[\'IFT6758-2025-B01\']" not found under entity "[\'IFT6758-2025-B1\']"', 'current_model': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:16:59] "POST /download_registry_model HTTP/1.1" 200 -
+INFO:app:[{'distance_to_net': 1}, {'distance_to_net': 25}, {'distance_to_net': 40}]
+INFO:app:Successfully generated predictions for 3 samples
+INFO:app:{'predictions': [[0.7543433510985463, 0.2456566489014537], [0.8923218986210038, 0.1076781013789962], [0.939069787213767, 0.06093021278623296]], 'predicted_class': [0, 0, 0], 'model_info': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}, 'n_samples': 3}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:27:12] "POST /predict HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:27:14] "GET /logs HTTP/1.1" 200 -
+INFO:app:{'entity': ['IFT6758-2025-B1'], 'project': ['IFT6758-2025-B01'], 'model_name': ['model1-distance'], 'version': 'latest'}
+INFO:app:Attempting to download model: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+WARNING:app:WANDB_API_KEY environment variable not set
+INFO:app:Downloading model from W&B: ['IFT6758-2025-B1']/['IFT6758-2025-B01']/['model1-distance']:latest
+ERROR:app:Failed to download model from W&B: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+ERROR:app:Failed to download model from registry: project "['IFT6758-2025-B01']" not found under entity "['IFT6758-2025-B1']"
+INFO:app:Keeping current model: {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}
+INFO:app:{'status': 'error', 'message': 'Failed to download model from registry: project "[\'IFT6758-2025-B01\']" not found under entity "[\'IFT6758-2025-B1\']"', 'current_model': {'entity': 'IFT6758-2025-B1', 'project': 'IFT6758-2025-B01', 'model_name': 'model1-distance', 'version': 'latest', 'loaded_at': '2025-11-25T11:30:27.942152', 'source': 'cache'}}
+INFO:werkzeug:127.0.0.1 - - [25/Nov/2025 12:27:19] "POST /download_registry_model HTTP/1.1" 200 -
