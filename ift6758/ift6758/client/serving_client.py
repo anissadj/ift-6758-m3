@@ -54,7 +54,7 @@ class ServingClient:
         data = {'entity': entity, 'project':project, 'model_name':model_name , 'version':version}
         path  = self.base_url+'/download_registry_model'
         try:
-            response  = requests.post(path, json= data )
+            response  = requests.post(path, json=data)
             return response.json()
         except Exception as e:
             print(f'I encountered an error {e}')

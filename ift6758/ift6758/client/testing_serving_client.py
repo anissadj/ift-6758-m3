@@ -57,8 +57,8 @@ if __name__ == "__main__":
     print("====== RUNNING SERVING_CLIENT TESTS ======")
 
     prediction  = test_predict() == True 
-    logs = test_logs()  
-    download  = test_download_registry_model()  
+    logs = test_logs()
+    download  = test_download_registry_model()
 
     if (prediction and logs and download): 
         print("\n====== ALL TESTS COMPLETED WITH SUCCESS ======")
