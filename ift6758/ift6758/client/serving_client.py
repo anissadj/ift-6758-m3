@@ -3,7 +3,6 @@ import requests
 import pandas as pd
 import logging
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -28,14 +27,16 @@ class ServingClient:
             X (Dataframe): Input dataframe to submit to the prediction service.
         """
 
-        raise NotImplementedError("TODO: implement this function")
-
+        df_json = X.to_dict(orient="records")
+        response = requests.post(self.base_url + "/predict", json=df_json)
+        return response
+    
     def logs(self) -> dict:
         """Get server logs"""
+        response = requests.get(self.base_url + "/logs")
+        return response.json()
 
-        raise NotImplementedError("TODO: implement this function")
-
-    def download_registry_model(self, workspace: str, model: str, version: str) -> dict:
+    def download_registry_model(self, entity: str, project: str, version: str, model_name: str) -> dict:
         """
         Triggers a "model swap" in the service; the workspace, model, and model version are
         specified and the service looks for this model in the model registry and tries to
@@ -50,5 +51,12 @@ class ServingClient:
             model (str): The model in the Comet ML registry to download
             version (str): The model version to download
         """
+        data = {'entity': entity, 'project':project, 'model_name':model_name , 'version':version}
+        path  = self.base_url+'/download_registry_model'
+        try:
+            response  = requests.post(path, json=data)
+            return response.json()
+        except Exception as e:
+            print(f'I encountered an error {e}')
+        return None
 
-        raise NotImplementedError("TODO: implement this function")
