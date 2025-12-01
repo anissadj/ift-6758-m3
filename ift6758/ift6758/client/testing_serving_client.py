@@ -4,7 +4,7 @@ from serving_client import ServingClient
 def test_predict():
     print("Testing /predict endpoint...")
     
-    client = ServingClient(ip="localhost", port=5000)
+    client = ServingClient(ip="localhost", port=8000)
     df = pd.DataFrame([
         {"distance_to_net": 1},
         {"distance_to_net": 25},
@@ -24,7 +24,7 @@ def test_predict():
 
 def test_logs():
     print("Testing /logs endpoint...")
-    client = ServingClient(ip="localhost", port=5000)
+    client = ServingClient(ip="localhost", port=8000)
     try:
         _ = client.logs()
         print("Logs have been loaded")
@@ -37,7 +37,7 @@ def test_logs():
 def test_download_registry_model():
     print('testing /download_registry_model endpoint...')
 
-    client = ServingClient(ip="localhost", port=5000)
+    client = ServingClient(ip="localhost", port=8000)
     
     entity = "IFT6758-2025-B1",
     project = "IFT6758-2025-B01",
