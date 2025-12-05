@@ -29,11 +29,11 @@ ENV WANDB_API_KEY=""
 
 # TODO: expose ports (or do this in docker-compose)
 
-EXPOSE 5000
+EXPOSE 8000
 
 # TODO: specify default command - this is not required because you can always specify the command
 # either with the docker run command or in the docker-compose file
 
 WORKDIR /code/serving
 
-CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=5000"]
+CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=8000"]
