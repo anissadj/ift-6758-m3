@@ -8,11 +8,10 @@
 
 # https://docs.docker.com/engine/reference/builder/#from
 # You shouldn't need to change this
-FROM python:3.7
+FROM python:3.13
 
 # https://docs.docker.com/engine/reference/builder/#workdir
 # Create and cd into /code as your working directory
-WORKDIR /code
 
 
 # The main docker commands you will find useful:
@@ -42,6 +41,7 @@ WORKDIR /code
 #
 #       CMD <SHELL COMMAND>
 
+WORKDIR /app
 
 
 # TODO: add code, optionally a default model if you want 
@@ -49,9 +49,15 @@ WORKDIR /code
 
 # TODO: install libs
 
+COPY ift6758/requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+COPY streamlit_app.py .
+COPY ift6758/ ./ift6758/
 
 # TODO: expose ports (or do this in docker-compose)
+EXPOSE 8501
 
 
 # TODO: specify default command - this is not required because you can always specify the command
 # either with the docker run command or in the docker-compose file
+CMD ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
