@@ -10,41 +10,6 @@ st.set_page_config(page_title="Hockey Visualization App", layout="wide")
 API_URL = "http://127.0.0.1:8000"   
 
 
-def payload_to_meta(payload, game_id: str):
-    return {
-        "game_id": game_id,
-        "home_team": payload.get("homeTeam", {}).get("commonName", {}).get("default"),
-        "away_team": payload.get("awayTeam", {}).get("commonName", {}).get("default"),
-        "home_id":   payload.get("homeTeam", {}).get("id"),
-        "away_id":   payload.get("awayTeam", {}).get("id"),
-        "home_score": payload.get("homeTeam", {}).get("score"),
-        "away_score": payload.get("awayTeam", {}).get("score"),
-        "period": payload.get("periodDescriptor", {}).get("number"),
-        "time_remaining": payload.get("clock", {}).get("timeRemaining", "—"),
-    }
-
-def event_period_and_time(evt: dict):
-    # The period number 
-    pd_num = (evt.get("periodDescriptor") or {}).get("number")
-    # The time remaining in that period
-    t_rem = evt.get("timeRemaining") 
-    return pd_num, t_rem
-
-
-def compute_xg(df: pd.DataFrame | None):
-    # update the home and away xG based on df
-    if df is None or df.empty or "goal_prob" not in df.columns or "team" not in df.columns:
-        return 0.0, 0.0
-    h = df.loc[df["team"] == "home", "goal_prob"].sum()
-    a = df.loc[df["team"] == "away", "goal_prob"].sum()
-    return float(h), float(a)
-
-def fetch_live_payload(game_id: str):
-    url = f"https://api-web.nhle.com/v1/gamecenter/{game_id}/play-by-play"
-    r = requests.get(url, timeout=20)
-    r.raise_for_status()
-    return r.json()
-
 def call_predict(df_feats: pd.DataFrame):
     r = requests.post(f"{API_URL}/predict",
                       json=df_feats.to_dict(orient="records"),
@@ -89,12 +54,14 @@ if "away_xg" not in st.session_state:
     st.session_state.away_xg = 0.0  
 if "prev_gid" not in st.session_state:
     st.session_state.prev_gid = 2021020329
+if "gc" not in st.session_state:
+    st.session_state.gc = GameClient(game_id=st.session_state.prev_gid, serving_client=None)
+
   
 with st.container():
     st.subheader("Game ID")
     game_id = st.text_input("Enter Game ID", value=st.session_state.prev_gid, key="game_id")
     if int(game_id) != int(st.session_state.prev_gid):
-        print(f"Game ID changed from {st.session_state.prev_gid} to {game_id}, resetting state.")
         st.session_state.last_seen = -1
         st.session_state.events_df = None
         st.session_state.meta = None
@@ -103,7 +70,8 @@ with st.container():
         st.session_state.away_xg = 0.0
         st.session_state.play_payload = None
         st.session_state.play_idx = 0
-        st.session_state.events_df = pd.DataFrame()             
+        st.session_state.events_df = pd.DataFrame()
+        st.session_state.gc = GameClient(game_id=game_id, serving_client=None)         
 
     if not game_id.strip():
         st.warning("Please enter a game ID.")
@@ -112,7 +80,8 @@ with st.container():
 
     if st.button("Ping game"):
         try:
-            payload = fetch_live_payload(game_id)
+            gc = st.session_state.gc
+            payload = gc.fetch_live_game()
             if st.session_state.play_payload is None or st.session_state.game_id != game_id:
                 st.session_state.play_payload = payload
                 st.session_state.play_idx = 0
@@ -139,17 +108,17 @@ with st.container():
                 st.session_state.play_idx = end
             if batch:
                 last_evt = batch[-1]
-                period, time_left = event_period_and_time(last_evt)
+                period, time_left = gc.event_period_and_time(last_evt)
             else:
                 period, time_left = 1, "20:00"
 
-            meta = payload_to_meta(st.session_state.play_payload, game_id)
+            meta = gc.payload_to_meta(st.session_state.play_payload, game_id)
             meta["period"] = period
             meta["time_remaining"] = time_left
             st.session_state.meta = meta
             
             shot_batch = [e for e in batch if e.get("typeDescKey") in shot_types]
-            gc = GameClient(game_id=game_id, serving_client=None)
+            
             feats = gc.events_to_features(shot_batch)
             owner_map = {}
             for e in shot_batch:
@@ -185,9 +154,10 @@ with st.container():
                 st.success(f" events loaded successfully.")
 
         except Exception as e:
-            st.error(f"Game ended — no more events to fetch.")
+            st.info("Game ended — no more events to fetch.")
 
 with st.container():
+    gc = st.session_state.gc
     meta = st.session_state.meta
     df = st.session_state.events_df
     if meta:
@@ -195,7 +165,7 @@ with st.container():
         colA, colB = st.columns(2)
         with colA:
             st.caption(f"Period {meta.get('period','?')} • Time left {meta.get('time_remaining','—')}")
-        st.session_state.home_xg, st.session_state.away_xg = compute_xg(df)
+        st.session_state.home_xg, st.session_state.away_xg = gc.compute_xg(df)
         col1, col2 = st.columns(2)
 
         with col1:

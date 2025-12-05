@@ -178,3 +178,35 @@ class GameClient:
             batch_probs.append(record)
         
         return batch_probs
+    def payload_to_meta(self,payload, game_id: str):
+        """
+        Extract metadata from the payload.
+        """
+        return {
+            "game_id": game_id,
+            "home_team": payload.get("homeTeam", {}).get("commonName", {}).get("default"),
+            "away_team": payload.get("awayTeam", {}).get("commonName", {}).get("default"),
+            "home_id":   payload.get("homeTeam", {}).get("id"),
+            "away_id":   payload.get("awayTeam", {}).get("id"),
+            "home_score": payload.get("homeTeam", {}).get("score"),
+            "away_score": payload.get("awayTeam", {}).get("score"),
+            "period": payload.get("periodDescriptor", {}).get("number"),
+            "time_remaining": payload.get("clock", {}).get("timeRemaining", "—"),
+        }
+    
+    def event_period_and_time(self,evt: dict):
+        # Extract period number and time remaining from an event.
+        pd_num = (evt.get("periodDescriptor") or {}).get("number")
+        # The time remaining in that period
+        t_rem = evt.get("timeRemaining") 
+        return pd_num, t_rem
+    
+    def compute_xg(self,df: pd.DataFrame | None):
+        """
+        Update home and away xG from the events DataFrame.
+        """
+        if df is None or df.empty or "goal_prob" not in df.columns or "team" not in df.columns:
+            return 0.0, 0.0
+        h = df.loc[df["team"] == "home", "goal_prob"].sum()
+        a = df.loc[df["team"] == "away", "goal_prob"].sum()
+        return float(h), float(a)
