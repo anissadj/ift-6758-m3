@@ -7,7 +7,7 @@ from ift6758.ift6758.client.serving_client import ServingClient
 
 st.set_page_config(page_title="Hockey Visualization App", layout="wide")
 
-API_URL = "http://127.0.0.1:8000"   
+API_URL = "http://serving:8000"   
 
 
 def call_predict(df_feats: pd.DataFrame):
