@@ -29,49 +29,20 @@ MODEL_DIR = "artifacts"
 
 app = Flask(__name__)
 
-# def load_model(model_name):
-#     # Initialize model with weights
-#     weights = get_model_weights(model_name).DEFAULT
-#     model = get_model(model_name, weights=weights)
-#     model.eval()
-#     return model, weights
-
-
-# @app.before_first_request
-# def before_first_request():
 """
 Hook to handle any initialization before the first request (e.g. load model,
 setup logging handler, etc.)
 """
-# TODO: setup basic logging configuration
 logging.basicConfig(filename=LOG_FILE, level=logging.INFO)
 app.logger.info("Starting Flask app...")
 
-# def load_local_model(model_name: str):
-#     """Load model from local disk."""
-#     global CURRENT_MODEL, CURRENT_MODEL_NAME
-
-#     model_path = Path(MODEL_DIR) / f"{model_name}" / f"{model_name}.joblib"
-#     if not model_path.exists():
-#         return None
-
-#     CURRENT_MODEL = joblib.load(model_path)
-#     CURRENT_MODEL_NAME = model_name
-#     app.logger.info(f"Model loaded: {model_name}")
-#     return CURRENT_MODEL
-
-
-# TODO: any other initialization before the first request (e.g. load default model)
-# load_local_model("distance")
 current_model = None
 current_model_info = None
-# model, weights = load_model(os.environ.get("MODEL_NAME"))
 
 @app.route("/logs", methods=["GET"])
 def logs():
     """Reads data from the log file and returns them as the response"""
     
-    #Read the log file specified and return the data
     if not os.path.exists(LOG_FILE):
         return jsonify({"error": "Log file not found"}), 404
     
@@ -79,7 +50,7 @@ def logs():
         data = f.read()
 
     response = {"logs": data}
-    return jsonify(response)  # response must be json serializable!
+    return jsonify(response)
 
 def _get_wandb_model_path(entity: str, project: str, model_name: str, version: str) -> str:
     """
@@ -177,7 +148,6 @@ def download_registry_model():
         }
     
     """
-    # Get POST json data
     json = request.get_json()
     app.logger.info(json)
 
@@ -189,49 +159,28 @@ def download_registry_model():
     global current_model, current_model_info
     
     model_id = f"{entity}/{project}/{model_name}:{version}"
-    
-    # Check if model is already cached
-    cache_path = _get_cache_path(entity, model_name, version)
-    
-    global current_model, current_model_info
 
-    # TODO: check to see if the model you are querying for is already downloaded 
+    cache_path = _get_cache_path(entity, model_name, version)
+
     if cache_path.exists():
         app.logger.info(f"Model already cached: {model_id}")
-        try:
-            # Load cached model
-            model = joblib.load(cache_path)
-            current_model = model
-            current_model_info = {
-                "entity": entity,
-                "project": project,
-                "model_name": model_name,
-                "version": version,
-                "loaded_at": dt.now().isoformat(),
-                "source": "cache"
-            }
-            app.logger.info(f"Successfully loaded model from cache: {model_id}")
-            
-            response = {
-                "status": "success",
-                "message": f"Model loaded from cache: {model_id}",
-                "model_info": current_model_info
-            }
+        model = joblib.load(cache_path)
+        current_model = model
+        current_model_info = {
+            "entity": entity,
+            "project": project,
+            "model_name": model_name,
+            "version": version,
+            "loaded_at": dt.now().isoformat(),
+            "source": "cache"
+        }
         
-        except Exception as e:
-            error_msg = f"Failed to load cached model: {str(e)}"
-            app.logger.error(error_msg)
-            return jsonify({"error": error_msg}), 500
-        
+        response = {
+            "status": "success",
+            "message": f"Model loaded from cache: {model_id}",
+            "model_info": current_model_info
+        }
 
-    # TODO: if yes, load that model and write to the log about the model change.  
-    # eg: app.logger.info(<LOG STRING>)
-    
-    # TODO: if no, try downloading the model: if it succeeds, load that model and write to the log
-    # about the model change. If it fails, write to the log about the failure and keep the 
-    # currently loaded model
-    # Tip: you can implement a "CometMLClient" similar to your App client to abstract all of this
-    # logic and querying of the CometML servers away to keep it clean here
     else:
         try:
             app.logger.info(f"Attempting to download model: {model_id}")
@@ -239,14 +188,12 @@ def download_registry_model():
             wandb_api_key = os.environ.get("WANDB_API_KEY")
             if not wandb_api_key:
                 app.logger.warning("WANDB_API_KEY environment variable not set")
-            # Download using ift6758 client (you may need to adjust based on your implementation)
-            # This is a placeholder - adjust to match your actual client
+            
             model, artifact_dir = _load_model_from_wandb(entity, project, model_name, version)
             
             if model is None:
                 raise ValueError(f"Model not found in registry: {model_id}")
             
-            # Save to cache
             joblib.dump(model, cache_path)
             
             current_model = model
@@ -258,7 +205,6 @@ def download_registry_model():
                 "loaded_at": dt.now().isoformat(),
                 "source": "registry"
             }
-            app.logger.info(f"Successfully downloaded and loaded model: {model_id}")
             
             response = {
                 "status": "success",
@@ -270,7 +216,6 @@ def download_registry_model():
             error_msg = f"Failed to download model from registry: {str(e)}"
             app.logger.error(error_msg)
 
-            # Keep currently loaded model
             if current_model is not None:
                 app.logger.info(f"Keeping current model: {current_model_info}")
                 response = {
@@ -285,7 +230,7 @@ def download_registry_model():
                 }
 
     app.logger.info(response)
-    return jsonify(response)  # response must be json serializable!
+    return jsonify(response)
 
 
 @app.route("/predict", methods=["POST"])
@@ -295,12 +240,8 @@ def predict():
 
     Returns predictions
     """
-    # Get POST json data
-
     global current_model, current_model_info
 
-    # TODO:
-    # raise NotImplementedError("TODO: implement this enpdoint")
     if current_model is None:
         error_msg = "No model currently loaded. Please download a model first."
         app.logger.warning(error_msg)
@@ -315,14 +256,12 @@ def predict():
         error_msg = f"Failed to parse input features: {str(e)}"
         app.logger.error(error_msg)
         response = {"error": error_msg}
-        # Make predictions
+
     try:
-        # Try predict_proba first (for probabilistic models like logistic regression)
         if hasattr(current_model, 'predict_proba'):
             predictions_proba = current_model.predict_proba(X)
             predictions_class = current_model.predict(X)
             
-            # Format response
             response = {
                 "predictions": predictions_proba.tolist(),
                 "predicted_class": predictions_class.tolist(),
@@ -331,14 +270,12 @@ def predict():
             }
             
         else:
-            # Fall back to predict if predict_proba not available
             predictions = current_model.predict(X)
             response = {
                 "predictions": predictions.tolist(),
                 "model_info": current_model_info,
                 "n_samples": len(X)
             }
-        app.logger.info(f"Successfully generated predictions for {len(X)} samples")
         
     except Exception as e:
         error_msg = f"Prediction failed: {str(e)}"
@@ -347,4 +284,4 @@ def predict():
 
 
     app.logger.info(response)
-    return jsonify(response)  # response must be json serializable!
+    return jsonify(response)

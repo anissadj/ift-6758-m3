@@ -188,7 +188,6 @@ with st.container():
     Xshow = st.session_state.get("events_df")
     if Xshow is not None and not Xshow.empty:
         if model_name == "model1-distance":
-            st.subheader( Xshow.columns)
             cols = [ c for c in ['distance_to_net','goal_prob','team', 'empty_net', 'is_goal'] if c in Xshow.columns]
         else:
             cols = [ c for c in ['shot_angle','distance_to_net','team','goal_prob', 'empty_net', 'is_goal'] if c in Xshow.columns]
