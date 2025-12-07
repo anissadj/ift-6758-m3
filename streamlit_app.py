@@ -118,8 +118,7 @@ with st.container():
             st.session_state.meta = meta
             
             shot_batch = [e for e in batch if e.get("typeDescKey") in shot_types]
-            
-            feats = gc.events_to_features(shot_batch)
+            feats = gc.events_to_features(shot_batch, e.get('situationCode'), str( e.get("eventId")) == str ((e.get("details") or {}).get("eventOwnerTeamId")) )
             owner_map = {}
             for e in shot_batch:
                 eid = int(e.get("eventId"))
@@ -155,6 +154,7 @@ with st.container():
 
         except Exception as e:
             st.info("Game ended — no more events to fetch.")
+            st.info(e)
 
 with st.container():
     gc = st.session_state.gc
@@ -188,9 +188,10 @@ with st.container():
     Xshow = st.session_state.get("events_df")
     if Xshow is not None and not Xshow.empty:
         if model_name == "model1-distance":
-            cols = [ c for c in ['distance_to_net','goal_prob','team'] if c in Xshow.columns]
+            st.subheader( Xshow.columns)
+            cols = [ c for c in ['distance_to_net','goal_prob','team', 'empty_net', 'is_goal'] if c in Xshow.columns]
         else:
-            cols = [ c for c in ['shot_angle','distance_to_net','team','goal_prob'] if c in Xshow.columns]
+            cols = [ c for c in ['shot_angle','distance_to_net','team','goal_prob', 'empty_net', 'is_goal'] if c in Xshow.columns]
         view = Xshow.loc[:, cols].rename(columns={"goal_prob": "Model output"}).reset_index(drop=True)
         if 'team' in view.columns and meta:
             name_map = {'home': meta.get('home_team'), 'away': meta.get('away_team')}

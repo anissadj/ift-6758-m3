@@ -10,7 +10,7 @@ services:
     ports:
       - 8000:8000
     environment:
-      WANDB_API_KEY: ${WANDB_API_KEY}
+      WANDB_API_KEY: 
 #      args:
 #        ARG: <ARG>
 #    image: ift6758/serving:<TAG>

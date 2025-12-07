@@ -68,6 +68,8 @@ class GameClient:
         details = event.get("details") or {}
         x = details.get("xCoord")
         y = details.get("yCoord")
+    
+    
 
         if x is None or y is None:
             return None
@@ -77,11 +79,27 @@ class GameClient:
             "typeDescKey": type_key,
             "coordinates_x": x,
             "coordinates_y": y,
+            "is_goal" : type_key == "goal"
+            
         }
 
         return row
 
-    def events_to_features(self, events: list[dict] | dict) -> pd.DataFrame:
+    def __processeventtype_(self, situationcode, isHome):
+        """
+        This is a helper function
+        """
+        if situationcode: 
+            goalie_away = int(situationcode[0])
+            goalie_home = int(situationcode[3])
+            if (isHome and goalie_away == 0) or (not isHome and goalie_home == 0):
+                empty_net = True 
+            else:
+                empty_net = False
+            return  empty_net
+        return None
+
+    def events_to_features(self, events: list[dict] | dict, situationcode, isHomeTeam) -> pd.DataFrame:
         """
         - Take a list of events (or a single event dict)
         - For each event, extract features if it's a valid shot event
@@ -115,7 +133,10 @@ class GameClient:
         df["distance2"] = np.sqrt((df["coordinates_x"] - net_x2) ** 2 + (df["coordinates_y"] - net_y2) ** 2)
 
         df["distance_to_net"] = df[["distance1", "distance2"]].min(axis=1)
+        df['empty_net'] = self.__processeventtype_(situationcode, isHomeTeam)
         df.drop(columns=["distance1", "distance2"], inplace=True)
+
+        
 
         return df
 
