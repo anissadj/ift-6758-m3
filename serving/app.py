@@ -97,20 +97,16 @@ def _load_model_from_wandb(entity: str, project: str, model_name: str, version: 
     try:
         app.logger.info(f"Downloading model from W&B: {model_path}")
         
-        # Use wandb.Api to download model
         api = wandb.Api()
         model_artifact = api.artifact(model_path)
         
-        # Download artifact to temporary directory
         artifact_dir = model_artifact.download()
         
-        # Find the model file in the artifact
         model_files = list(Path(artifact_dir).glob("*.joblib"))
         
         if not model_files:
             raise FileNotFoundError(f"No model files found in artifact: {model_path}")
         
-        # Load the first model file found
         model_file = model_files[0]
         app.logger.info(f"Loading model from: {model_file}")
         
